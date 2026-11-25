@@ -5,6 +5,8 @@
 # Python
 __pycache__/
 *.py[cod]
+push_powerbi_repo.py
+VIDEO_SCRIPT_POWERBI.md
 
 # OS
 Thumbs.db
