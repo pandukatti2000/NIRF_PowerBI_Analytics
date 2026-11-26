@@ -207,11 +207,11 @@ def create_deck():
     add_header(slide4, "Power BI Report Architecture: 5 Purpose-Built Analytical Pages")
 
     pages = [
-        ("Page 1: Executive KPI Overview", "Scatter & Bubble plot of Fees vs Salary, KPI cards, Top 5 Best & Least Value colleges.", ACCENT_BLUE),
-        ("Page 2: The Mid-Tier Trap", "Combo chart comparing Rank Bands 1 to 4, demonstrating fee escalation alongside salary drops.", TEAL),
-        ("Page 3: Geographic & State ROI", "India shape map, state bar rankings, and decomposition tree exposing regional tuition variations.", NAVY),
-        ("Page 4: Placement Risk vs Capital", "4-Quadrant scatter plot identifying high-cost colleges with sub-50% placement success.", RED),
-        ("Page 5: Interactive Decision Engine", "Multi-college side-by-side comparison, loan financing parameter simulator, and search matrix.", GREEN)
+        ("Page 1: Executive Overview", "Multi-Row KPI card, Fees vs Salary scatter bubble plot with State Play Axis, and 224x recovery disparity bar chart.", ACCENT_BLUE),
+        ("Page 2: The Mid-Tier Trap", "Multi-Row card, City tech-hub slicer, dual-axis Combo chart (Fees/Salary vs Ratio), and Rank Band matrix table.", TEAL),
+        ("Page 3: Geographic ROI", "Custom India TopoJSON shape map, state recovery bar ranking, and interactive 3-tier Decomposition Tree.", NAVY),
+        ("Page 4: Capital Risk & Placement", "4-Quadrant scatter plot (Placement % vs Fees), Institution Type donut chart, and Danger Zone watchlist table.", RED),
+        ("Page 5: College Explorer", "Multi-hierarchy Rank Band & State slicer with full-width 1920px master searchable college explorer table.", GREEN)
     ]
     for i, (title, desc, color) in enumerate(pages):
         top_pos = Inches(1.8 + i * 1.0)

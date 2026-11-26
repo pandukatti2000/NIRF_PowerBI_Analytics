@@ -4,15 +4,16 @@
 > *"Is that college worth the fees?" — A Comprehensive 5-Page Power BI Analytics & Reporting Solution*
 
 [![Power BI](https://img.shields.io/badge/Power_BI-Desktop-F2C811?logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
+[![Dashboard File](https://img.shields.io/badge/Report-NIRF__Engineering__VFM__Analytics.pbix-orange.svg)](NIRF_Engineering_VFM_Analytics.pbix)
 [![Dataset](https://img.shields.io/badge/Dataset-colleges__final.csv-blue.svg)](data/colleges_final.csv)
 [![Presentation](https://img.shields.io/badge/PowerPoint-10--Slide_Deck-D24726?logo=microsoftpowerpoint&logoColor=white)](NIRF_PowerBI_Presentation.pptx)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](#license)
 
 ---
 
-## 1. Project Overview & Stakeholder Problem
+## 1. Project Overview & Stakeholder Decision
 
-* **The Stakeholder:** A prospective Indian engineering student and their family choosing among engineering college admission offers.
+* **The Stakeholder:** A prospective Indian engineering student and their family evaluating admission offers across top NIRF-ranked institutions.
 * **The Decision:** Determining which engineering institution delivers the highest financial return relative to mandatory four-year academic fees, balancing brand prestige against family capital outlays and educational loan burdens.
 * **The Core Value Metric:**
   $$\text{Fee-to-Salary Ratio} = \frac{\text{Total 4-Year Mandatory Academic Fees (General Category)}}{\text{Annual Median Placement Salary}}$$
@@ -20,65 +21,79 @@
 
 ---
 
-## 2. Primary Dataset to Use
+## 2. Power BI Dashboard Architecture (`.pbix`)
 
-Load **`data/colleges_final.csv`** directly into Power BI Desktop.
-
-It contains all **100 Top NIRF 2025 Engineering Colleges** joined with audited 4-year academic fees and placement outcomes:
-* `institute_id`: Official NIRF institute identifier (e.g., `IR-E-U-0456`).
-* `college_name`: Full institutional name.
-* `nirf_rank`: NIRF 2025 official rank (1 to 100).
-* `nirf_score`: Total NIRF evaluation score.
-* `city`, `state`: Geographic location.
-* `graduated_count`, `placed_count`, `placement_percentage`: Official placement volume and percentage for the graduating cohort (Academic Year 2023–24).
-* `median_salary_inr`, `median_salary_lpa`: Median placement package reported in NIRF DCS.
-* `total_4yr_academic_fees_inr`, `total_4yr_academic_fees_lpa`: Audited mandatory 4-year academic dues for General-Category Indian students.
-* `fee_salary_ratio`: Standardized value metric (Fees / Salary).
-* `placement_extraction_status`: Status flag (`SUCCESS` for 97 eligible 4-year UG colleges; `PG_ONLY_NO_UG4` for 3 postgraduate-only institutes).
-
----
-
-## 3. The 5-Page Power BI Report Blueprint
-
-Detailed step-by-step layout and visual configuration are documented in [`POWERBI_BLUEPRINT.md`](POWERBI_BLUEPRINT.md).
+The interactive dashboard file is **`NIRF_Engineering_VFM_Analytics.pbix`** (1920×1080 Widescreen). It contains **5 purpose-built analytical pages** designed with maximum clarity and 2 to 4 high-impact visuals per page:
 
 ```text
-├── Page 1: Executive KPI & Strategic Value Overview
-│   ├── 5 Top KPI Cards (Eligible Colleges, Avg Fees, Avg Salary, Avg Recovery, Avg Placement)
-│   ├── Fees vs. Salary Bubble Scatter Plot (Sized by Placed Count, colored by Institution Type)
-│   └── Top 5 Best Value vs. Top 5 Highest Capital Burden Tables
+├── Page 1: Executive Overview (3 Visuals)
+│   ├── Top Multi-Row Card: 97 Eligible Colleges, ₹8.43L Avg Fees, ₹11.14 LPA Avg Salary, 0.90 yrs Avg Recovery
+│   ├── Scatter Bubble Plot: Fees vs. Salary (Sized by Placed Volume, colored by Institution Type, with State Play Axis)
+│   └── Clustered Bar Chart: Highlighting the 224× recovery disparity (Jadavpur 0.013 yrs vs SRM 2.919 yrs)
 │
-├── Page 2: The "Mid-Tier Trap" — NIRF Rank Band Dissection
-│   ├── Clustered Column & Line Combo Chart (Average Fees & Salary on Left Axis; Recovery Years on Right Axis)
-│   ├── 4 Rank Band Performance Cards (Bands 1 to 4)
-│   └── Drill-Down Rank Band Matrix with Conditional Formatting
+├── Page 2: The Mid-Tier Trap (4 Visuals)
+│   ├── Multi-Row Card: Rank Band Performance Metrics
+│   ├── City Slicer: Interactive dropdown for tech hubs (Pune, Chennai, Delhi, etc.)
+│   ├── Dual-Axis Combo Line/Column Chart: Columns show Fees & Salary; Line shows Recovery Years across Rank Bands
+│   │   → Proves: Moving from Band 1 (Ranks 1–25) to Band 2 (Ranks 26–50) increases fees by 6.8% while salary drops by 28.5%!
+│   └── Rank Band Matrix Table: Drill-down from Rank Band to individual institutions
 │
-├── Page 3: Geographic & State-Level Return on Investment
-│   ├── Filled / Shape Map of India colored by Fee-Salary Ratio gradient
-│   ├── Horizontal Clustered Bar Chart of States sorted by Payback Time
-│   └── State Decomposition Tree (State → Public/Private → College)
+├── Page 3: Geographic ROI (3 Visuals)
+│   ├── Custom India Shape Map: Colored by Fee-Salary Ratio gradient using embedded TopoJSON map
+│   ├── Clustered Horizontal Bar Chart: States ranked ascending by Recovery Time (West Bengal 5.0 mo vs Uttarakhand 22.7 mo)
+│   └── Decomposition Tree: Interactive root-cause breakdown (Avg Ratio → State → Institution Type → College)
 │
-├── Page 4: Placement Reliability vs Capital Exposure
-│   ├── 4-Quadrant Matrix (Placement % on X-Axis vs 4-Yr Fees on Y-Axis)
-│   ├── Donut Chart of Colleges by Placement Reliability Tier
-│   └── Danger Zone Alert Table (Colleges with <50% Placement & >₹10L Fees)
+├── Page 4: Capital Risk & Placement (3 Visuals)
+│   ├── 4-Quadrant Scatter Plot: Placement % (0–100%) vs 4-Year Fees (0–22 Lakhs)
+│   │   → Exposes the "Danger Zone": Colleges charging >₹10L with <50% placement success
+│   ├── Donut Chart: Breakdown of ranked colleges by Institution Type
+│   └── Watchlist Table: Pinpointing high-risk colleges like KIIT (34.9% placed) and Graphic Era (49.3% placed)
 │
-└── Page 5: Interactive College Explorer & Loan Simulator
-    ├── Side-by-Side Multi-College Comparison Selector
-    ├── What-If Parameter Sliders: Loan Financing % & Disposable Salary Savings %
-    └── Complete Searchable College Explorer Matrix with Source URL Links
+└── Page 5: College Explorer (2 Visuals)
+    ├── Multi-Hierarchy Slicer: Filter dynamically by Rank Band and State
+    └── Full-Width Master Table (1920px): Searchable grid displaying Rank, College, City, State, Fees, Salary, Ratio, and Placement %
 ```
 
 ---
 
-## 4. DAX Measures & Calculated Columns Library
+## 3. Data Model & DAX Formulas
 
-Create a dedicated table named `_Measures` in Power BI:
+### Primary Table: `colleges_final.csv` (100 Rows)
+* `data/colleges_final.csv`: Joins NIRF DCS placement figures (AY 2023–24) with audited mandatory 4-year academic dues.
 
-### Core DAX Measures
+### Calculated Columns
 ```dax
-Total_Colleges = COUNTROWS(colleges_final)
+Rank_Band = 
+SWITCH(
+    TRUE(),
+    colleges_final[nirf_rank] <= 25, "Band 1 (Ranks 1-25)",
+    colleges_final[nirf_rank] <= 50, "Band 2 (Ranks 26-50)",
+    colleges_final[nirf_rank] <= 75, "Band 3 (Ranks 51-75)",
+    "Band 4 (Ranks 76-100)"
+)
+```
 
+```dax
+Institution_Type = 
+SWITCH(
+    TRUE(),
+    CONTAINSSTRING(colleges_final[college_name], "Indian Institute of Technology") || CONTAINSSTRING(colleges_final[college_name], "IIT"), "IIT",
+    CONTAINSSTRING(colleges_final[college_name], "National Institute of Technology") || CONTAINSSTRING(colleges_final[college_name], "NIT"), "NIT",
+    CONTAINSSTRING(colleges_final[college_name], "Jadavpur") || 
+    CONTAINSSTRING(colleges_final[college_name], "Jamia") || 
+    CONTAINSSTRING(colleges_final[college_name], "Anna") || 
+    CONTAINSSTRING(colleges_final[college_name], "Delhi Technological") || 
+    CONTAINSSTRING(colleges_final[college_name], "Netaji Subhas") || 
+    CONTAINSSTRING(colleges_final[college_name], "College of Engineering, Pune") || 
+    CONTAINSSTRING(colleges_final[college_name], "Aligarh") ||
+    CONTAINSSTRING(colleges_final[college_name], "Madan Mohan") ||
+    CONTAINSSTRING(colleges_final[college_name], "AU College"), "Premier State/Central Govt",
+    "Private / Deemed"
+)
+```
+
+### Core DAX Measures (`_Measures` table)
+```dax
 Eligible_Colleges = 
 CALCULATE(COUNTROWS(colleges_final), colleges_final[placement_extraction_status] = "SUCCESS")
 
@@ -97,33 +112,9 @@ Avg_Placement_Rate =
 CALCULATE(AVERAGE(colleges_final[placement_percentage]), colleges_final[placement_extraction_status] = "SUCCESS")
 ```
 
-### Calculated Columns (Add to `colleges_final`)
-```dax
-Rank_Band = 
-SWITCH(
-    TRUE(),
-    colleges_final[nirf_rank] <= 25, "Band 1 (Ranks 1-25)",
-    colleges_final[nirf_rank] <= 50, "Band 2 (Ranks 26-50)",
-    colleges_final[nirf_rank] <= 75, "Band 3 (Ranks 51-75)",
-    "Band 4 (Ranks 76-100)"
-)
-```
-
-```dax
-Recovery_Category = 
-SWITCH(
-    TRUE(),
-    ISBLANK(colleges_final[fee_salary_ratio]), "N/A (PG Only)",
-    colleges_final[fee_salary_ratio] < 0.5, "1. Exceptional Value (< 6 Months)",
-    colleges_final[fee_salary_ratio] <= 1.0, "2. High Value (6 - 12 Months)",
-    colleges_final[fee_salary_ratio] <= 2.0, "3. Moderate Burden (1 - 2 Years)",
-    "4. Severe Debt Risk (> 2 Years)"
-)
-```
-
 ---
 
-## 5. Key Numerical Findings
+## 4. Key Numerical Findings
 
 1. **Public Subsidies Deliver up to 224× Faster Capital Recovery:**
    - **Jadavpur University** (NIRF #18) charges **₹14,110** total academic fees over four years against a median placement salary of **₹10.50 LPA**, recovering academic dues in **0.013 years** (~5 days of gross pay) with a **91.01%** placement rate.
@@ -132,43 +123,22 @@ SWITCH(
 2. **The "Mid-Tier Trap" (Ranks 26–75):**
    - **Band 1 (Ranks 1–25):** Mean Fee **₹8.63L** | Mean Salary **₹15.05 LPA** | Recovery **0.68 yrs** (8.2 mo) | Placed **79.72%**
    - **Band 2 (Ranks 26–50):** Mean Fee **₹9.22L** (+6.8%) | Mean Salary **₹10.76 LPA** (-28.5%) | Recovery **0.99 yrs** (11.9 mo) | Placed **71.39%**
-   - **Band 3 (Ranks 51–75):** Mean Fee **₹9.10L** | Mean Salary **₹10.40 LPA** (-30.9%) | Recovery **0.97 yrs** (11.6 mo) | Placed **72.37%**
-   - **Band 4 (Ranks 76–100):** Mean Fee **₹6.75L** | Mean Salary **₹8.17 LPA** | Recovery **0.98 yrs** (11.8 mo) | Placed **64.27%**
+   - **Band 3 (Ranks 51–75):** Mean Fee **₹9.10L** | Mean Salary **₹10.40 LPA** (-30.9%) | Recovery **0.968 yrs** (11.6 mo) | Placed **72.37%**
+   - **Band 4 (Ranks 76–100):** Mean Fee **₹6.75L** | Mean Salary **₹8.17 LPA** | Recovery **0.982 yrs** (11.8 mo) | Placed **64.27%**
 3. **Geographic Distribution:**
    - **Top Value States:** **West Bengal** (0.420 yrs avg ratio, ₹12.50 LPA salary) and **Delhi** (0.602 yrs avg ratio across 6 colleges with the country's highest state average salary: **₹16.08 LPA**).
    - **Least Value States:** **Uttarakhand** (1.889 yrs avg ratio) and **Karnataka** (1.339 yrs avg ratio, driven by high private tuition fees).
 
 ---
 
-## 6. Project Artifacts & Presentations
+## 5. Repository Artifacts
 
-* **PowerPoint Presentation:** [`NIRF_PowerBI_Presentation.pptx`](NIRF_PowerBI_Presentation.pptx) (10 widescreen slides ready for demo day presentation).
+* **Power BI File:** [`NIRF_Engineering_VFM_Analytics.pbix`](NIRF_Engineering_VFM_Analytics.pbix) (Widescreen 1080p 5-page report).
+* **PowerPoint Presentation:** [`NIRF_PowerBI_Presentation.pptx`](NIRF_PowerBI_Presentation.pptx) (10 widescreen slides).
 * **Slide Notes & Outline:** [`PRESENTATION_OUTLINE.md`](PRESENTATION_OUTLINE.md).
-* **2-Minute Video Pitch Script:** [`VIDEO_SCRIPT_POWERBI.md`](VIDEO_SCRIPT_POWERBI.md) (Second-by-second timed script: 0:00–0:15 hook, 0:15–1:15 dashboard walkthrough, 1:15–1:45 data engineering, 1:45–2:00 family recommendation).
+* **Visualization Blueprint:** [`POWERBI_BLUEPRINT.md`](POWERBI_BLUEPRINT.md) (Complete field mappings and DAX library).
 * **Source Citations Log:** [`fee_sources.md`](fee_sources.md) (Audited references for all 100 institutions).
-
----
-
-## 7. How to Push this Repository to GitHub
-
-To publish this project to GitHub under a new repository (e.g. `NIRF_PowerBI_Analytics`):
-
-```bash
-cd "c:\Users\pkatt\OneDrive\Desktop\Projects\NIRF_PowerBI_Analytics"
-
-# Initialize git
-git init
-git add .
-git commit -m "feat: complete NIRF 2025 Power BI analytics project with 5-page blueprint, DAX library, and presentation deck"
-
-# Using GitHub CLI:
-gh repo create NIRF_PowerBI_Analytics --public --source=. --remote=origin --push
-
-# Or using standard Git with a pre-created repository:
-git branch -M main
-git remote add origin https://github.com/<your-username>/NIRF_PowerBI_Analytics.git
-git push -u origin main
-```
+* **India TopoJSON Map:** [`india_states_powerbi.topojson`](india_states_powerbi.topojson) (Boundary definitions for India state visual).
 
 ---
 

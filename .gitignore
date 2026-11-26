@@ -6,6 +6,11 @@
 __pycache__/
 *.py[cod]
 push_powerbi_repo.py
+build_presentation.py
+inspect_pbix.py
+check_model.py
+detailed_inspect.py
+topojson.json
 VIDEO_SCRIPT_POWERBI.md
 
 # OS
