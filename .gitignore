@@ -13,6 +13,9 @@ detailed_inspect.py
 topojson.json
 VIDEO_SCRIPT_POWERBI.md
 
-# OS
+# OS & Office Temp Files
 Thumbs.db
 .DS_Store
+~$*
+*.tmp
+*.pbix.backup
